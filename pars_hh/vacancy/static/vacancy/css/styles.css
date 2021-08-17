@@ -1,54 +1,46 @@
-html, body {
-	font-family: 'Arial';
-	margin: 0;
-	padding: 0;
-	height: 100%;
-	width: 100%;
-	color: #0;
-}
+.navbar-custom {
+            background-color: #C0C0C0;
+            height: 70px;
+            padding: 0px 0px 0px 20px;
+                }
 
-a {
-	color: #0059b2;
-	text-decoration: none;
-}
-a:hover {
-	color: #CC0000;
-	text-decoration: underline;
-}
-
-.header {
-	background: #cdcdcd;
-	height: 60px;
-}
+.nav-text{
+        color: black;
+        padding: 20px;
+        }
 
 .logo {
-	background: url('https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019') no-repeat 20px 5px;
-	width: 70px;
-	height: 60px;
+     width: 60px;
+     height: 60px;
+       }
+
+
+.form {
+    padding: 20px 0px 0px 20px;
 }
 
-ul.mainmenu {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	height: 60px;
-	color: #cdcdcd;
-	font-size: 20px;
-	overflow: hidden;
+.form-input {
+    width: 300px;
+    font-size: 16px;
+
 }
 
-ul.mainmenu li.logo {margin: 0;}
+.form-label {
+    display: inline-block;
+    min-width: 150px;
+    vertical-align: top;
+    padding: 0px 40px 0px 0px;
 
-ul.mainmenu li {
-	float: left;
-	margin: 18px 40px 0 30px;
 }
 
-.table-content{
-    width:"100%";
+.form-error ul {
+    list-style: none;
+    padding: 0;
+    color: #CC0000;
 }
 
-.left-side{
-    width = 100px;
-    background = 'green'
+.form-button {
+    min-width: 200px;
+    font-size: 16px;
+
 }

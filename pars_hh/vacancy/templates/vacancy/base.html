@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>{{title}}</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link type="text/css" href="{% static 'vacancy/css/styles.css' %}" rel="stylesheet" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="shortcut icon" href="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019" type="image/x-icon"/>
@@ -10,27 +11,39 @@
 </head>
 <body>
 
-{% block mainmenu %}
-		<div class="header">
-			<ul id="mainmenu" class="mainmenu">
-			<li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+<!-- Создаем навигацию
+<nav class="nav nav-tabs navbar-custom text-center">
+	<a href="{% url 'home' %}">
+		<img class='logo'>
+	</a>
 {% for m in menu %}
-	<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
+	<a class="nav-link" href="{% url m.url_name %}">{{m.title}}</a>
 {% endfor %}
-			</ul>
-			<div class="clear"></div>
-		</div>
-{% endblock mainmenu %}
 
-<table class="table-content" border=0 cellpadding="0" cellspacing="0">
-<tr align="left" valign="top">
-	<td class="left-side">
-		sgsdgsdgertyhetururtudgwegwertygewryery
-	</td>
-	<td >
-		sgsdgsdsdvgsdgsdgsdfhhhhhhhhhhhhhhhhhhhhhhhbtrg
-	</td>
-</tr>
-</table>
+</nav>
+-->
+<nav class="nav navbar-custom" >
+  <a class="navbar-brand" href="{% url 'home' %}">
+      <img class="logo" src="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019">
+  </a>
+	{% for m in menu %}
+		<a class="nav-link nav-text" href="{% url m.url_name %}">{{m.title}}</a>
+	{% endfor %}
+</nav>
+
+<div class="container-fluid">
+  <h1>Поиск по вакансиям</h1>
+  <div class="row">
+    <div class="col-sm-3" style="background-color:lavender;">
+		{% block content %}
+		{% endblock %}
+		<h2>Предыдущие запросы</h2>
+	</div>
+    <div class="col-sm-9" style="background-color:lavenderblush;">.col-sm-8</div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>
