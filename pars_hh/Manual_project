@@ -1,0 +1,7 @@
+1. Запуск проекта: django-admin startproject pars_hh(Имя нашего проекта)
+2. Создание приложения: python manage.py startapp vacancy(Имя нашего приложения)
+3. Регистрируем в приложение, settings.py:
+INSTALLED_APPS = [
+   ...........
+    'vacancy.apps.VacancyConfig',
+]
