@@ -5,3 +5,28 @@ INSTALLED_APPS = [
    ...........
     'vacancy.apps.VacancyConfig',
 ]
+
+4. Указываем каталоги для статических файлов
+STATIC_URL = '/static/'  # Указывает каталог со статическими файлами
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = []
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+5. Добавляем маршрутизацию из приложения urls.py:
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('vacancy.urls')),
+]
+
+6. Настраиваем маршруты в приложении urls.py:
+urlpatterns = [
+     path('', index, name='home'),
+     path('about/', about, name='about'),
+     path('contact/', contact, name='contact'),  # Устанавливаем маршруты между ссылкой и представлением
+]
+
+7. Настраиваем представления:
+def index(request):
+    return HttpResponse('<h1>Главная страница</h1>')
