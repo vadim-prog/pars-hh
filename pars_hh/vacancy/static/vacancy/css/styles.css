@@ -1,0 +1,54 @@
+html, body {
+	font-family: 'Arial';
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	color: #0;
+}
+
+a {
+	color: #0059b2;
+	text-decoration: none;
+}
+a:hover {
+	color: #CC0000;
+	text-decoration: underline;
+}
+
+.header {
+	background: #cdcdcd;
+	height: 60px;
+}
+
+.logo {
+	background: url('https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019') no-repeat 20px 5px;
+	width: 70px;
+	height: 60px;
+}
+
+ul.mainmenu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	height: 60px;
+	color: #cdcdcd;
+	font-size: 20px;
+	overflow: hidden;
+}
+
+ul.mainmenu li.logo {margin: 0;}
+
+ul.mainmenu li {
+	float: left;
+	margin: 18px 40px 0 30px;
+}
+
+.table-content{
+    width:"100%";
+}
+
+.left-side{
+    width = 100px;
+    background = 'green'
+}
