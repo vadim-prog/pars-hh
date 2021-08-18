@@ -1,20 +1,21 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-
+from .hh_api import *
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         ]
-
 
 def index(request):
 
     if request.method == 'POST':
         form = AddPostForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['vac_input'])
-            #form.save()
+            # print(form.cleaned_data['vac_input'])
+            test = Results(form.cleaned_data['vac_input'], form.cleaned_data['reg_input'])
+            test.parsing()
+            # form.save()
             return redirect('home')
     else:
         form = AddPostForm()

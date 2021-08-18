@@ -77,7 +77,7 @@ class Results:
     def url_vac(self, jsobj_api):
         return jsobj_api['alternate_url']
 
-    def results(self):
+    def parsing(self):
         for page in range(0, 10):
             hh_req = HHapi(page, self.name_v, self.name_r)
             jsobj = json.loads(hh_req.getpage())
@@ -108,7 +108,6 @@ class Results:
     # Необязательная задержка, но чтобы не нагружать сервисы hh, оставим. 5 сек мы может подождать
     time.sleep(0.25)
 
-
-test = Results('Инженер', 'Омск')
-
-print(test.results())
+# test = Results(form.cleaned_data['vac_input'], form.cleaned_data['reg_input'])
+#test = Results('Пентестер', 'Москва')
+#test.parsing()
