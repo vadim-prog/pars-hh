@@ -11,17 +11,8 @@
 </head>
 <body>
 
-<!-- Создаем навигацию
-<nav class="nav nav-tabs navbar-custom text-center">
-	<a href="{% url 'home' %}">
-		<img class='logo'>
-	</a>
-{% for m in menu %}
-	<a class="nav-link" href="{% url m.url_name %}">{{m.title}}</a>
-{% endfor %}
+<!-- Создаем навигацию -->
 
-</nav>
--->
 <nav class="nav navbar-custom" >
   <a class="navbar-brand" href="{% url 'home' %}">
       <img class="logo" src="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019">
@@ -31,17 +22,8 @@
 	{% endfor %}
 </nav>
 
-<div class="container-fluid">
-  <h1>Поиск по вакансиям</h1>
-  <div class="row">
-    <div class="col-sm-3" style="background-color:lavender;">
-		{% block content %}
-		{% endblock %}
-		<h2>Предыдущие запросы</h2>
-	</div>
-    <div class="col-sm-9" style="background-color:lavenderblush;">.col-sm-8</div>
-  </div>
-</div>
+{% block content %}
+{% endblock %}
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
