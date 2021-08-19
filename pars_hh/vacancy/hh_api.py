@@ -2,6 +2,8 @@ import requests
 import json
 import time
 import re
+from .models import *
+from django.http import HttpResponse
 
 
 class HHapi:
@@ -15,7 +17,10 @@ class HHapi:
         data = req.content.decode()
         req.close()
         jsobj = json.loads(data)
-        return jsobj["items"][0]["id"]
+        try:
+            return jsobj["items"][0]["id"]
+        except IndexError:
+            pass
 
     def getpage(self):
         params = {
@@ -78,6 +83,7 @@ class Results:
         return jsobj_api['alternate_url']
 
     def parsing(self):
+        s1 = Search.objects.create(input_vacancy=self.name_v, city=self.name_r)
         for page in range(0, 10):
             hh_req = HHapi(page, self.name_v, self.name_r)
             jsobj = json.loads(hh_req.getpage())
@@ -87,23 +93,21 @@ class Results:
                 req_desc_api.close()
                 jsobj_api = json.loads(data_api)
 
-                print(f"Название вакансии: {self.name_vac_hh(jsobj, vacancy)}")
-
-                print(f"Описание: {self.desc(jsobj_api)}")
-
-                print(f"Зарплата: {self.salary(jsobj_api)}")
-
-                print(f"Навыки: {self.skills(jsobj_api)}")
-
-                print(f"Название компании: {self.name_company(jsobj_api)}")
-
-                print(f"Адрес компании: {self.address_company(jsobj, vacancy)}")
-
-                print(f"ССылка на вакансию: {self.url_vac(jsobj_api)}")
-
-                print('*'* 100)
+                Output_data.objects.create(
+                    vacancy=self.name_vac_hh(jsobj, vacancy),
+                    description=self.desc(jsobj_api),
+                    salary=self.salary(jsobj_api),
+                    skills=self.skills(jsobj_api),
+                    company=self.name_company(jsobj_api),
+                    address=self.address_company(jsobj, vacancy),
+                    url_link=self.url_vac(jsobj_api),
+                    input_vac_id=s1.pk
+                    )
 
             if (jsobj['pages'] - page) <= 1:
                 break
+
+        return Output_data.objects.filter(input_vac_id=s1.pk)
+
     # Необязательная задержка, но чтобы не нагружать сервисы hh, оставим. 5 сек мы может подождать
     time.sleep(0.25)
