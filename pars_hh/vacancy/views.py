@@ -14,7 +14,7 @@ def index(request):
         form = AddPostForm(request.POST)
         if form.is_valid():
             form.save()
-            res = Results(form.cleaned_data['vac_input'], form.cleaned_data['reg_input'], form.save().pk)
+            res = Results(form.cleaned_data['input_vacancy'], form.cleaned_data['city'], form.save().pk)
             res_request = res.parsing()
     else:
         res_request = []
