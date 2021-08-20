@@ -3,6 +3,11 @@ from .models import *
 from django.core.exceptions import ValidationError
 
 
-class AddPostForm(forms.Form):
-    vac_input = forms.CharField(max_length=255, label='Введите вакансию')  # Обычное поле для ввода
-    reg_input = forms.CharField(max_length=255, label='Введите регион')
+class AddPostForm(forms.ModelForm):
+    class Meta:
+        model = Search
+        fields = ['input_vacancy', 'city']
+        widgets = {
+            'input_vacancy': forms.TextInput(attrs={'class': 'form-input'}),
+            'city': forms.TextInput(attrs={'class': 'form-input'})
+        }

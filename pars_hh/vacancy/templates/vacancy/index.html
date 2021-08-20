@@ -15,7 +15,7 @@
             <div class="form-error">{{ form.non_field_errors }}</div>
 
             {% for f in form %}
-            <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+            <p><label class="form-label">{{f.label}}: </label>{{ f }}</p>
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
 
@@ -24,11 +24,27 @@
         </div>
 
         <div class="line"></div>
-        <p class = "title-body">Предыдущие запросы:</p>
+        <p class = "title-body">Последние 5 запросов:</p>
 
 	</div>
     <div class="col-sm-9 offset-3" style="background-color:white;">
-        <p class = "title-body">Результаты поиска: 0 вакансий</p>
+        {% if res_request == 0 %}
+                <p class = "title-body">Результаты поиска: найдено {{ res_request|length }} вакансий</p>
+        {% else %}
+                <p class = "title-body">Результаты поиска: найдено {{ res_request|length }} вакансий</p>
+                {% for r in res_request %}
+                        <ul>
+                            <li>Вакансия: {{ r.vacancy }}</li>
+                            <li>Описание: {{ r.description|linebreaks }}</li>
+                            <li>Зарплата: {{ r.salary }}</li>
+                            <li>Навыки:   {{ r.skills }}</li>
+                            <li>Компания: {{ r.company }}</li>
+                            <li>Адрес:    {{ r.address }}</li>
+                            <li>Ссылка:   <a href="{{ r.url_link }}">{{ r.url_link }}</a></li>
+                            <div class="line"></div>
+                        </ul>
+                {% endfor %}
+        {% endif %}
     </div>
   </div>
 </div>
