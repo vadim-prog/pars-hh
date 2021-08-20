@@ -45,17 +45,17 @@ class Results:
         return jsobj['items'][vacancy]['name']
 
     def desc(self, jsobj_api):  # Получаем Описание вакансии
-        return re.sub('</?\w+\s?>', '', jsobj_api['description'])  # Исключаем теги из описания вакансии по регулярному выражению
+        return jsobj_api['description']
 
     def salary(self, jsobj_api):  # Получаем З/П
         if jsobj_api['salary'] is not None:
-            salary_res = f"от {jsobj_api['salary']['from']}"
+            salary_res = f"от {jsobj_api['salary']['from'] }"
             if jsobj_api['salary']['to'] is not None:
                 salary_res = salary_res + f"до {jsobj_api['salary']['to']} {jsobj_api['salary']['currency']}"
             else:
                 salary_res = salary_res + jsobj_api['salary']['currency']
         else:
-            salary_res = "Не указано"
+            salary_res = "Не указана"
 
         return salary_res
 
@@ -64,7 +64,7 @@ class Results:
         for key_skills in range(0, len(jsobj_api["key_skills"])):
             skills_res.append(jsobj_api["key_skills"][key_skills]["name"])
         else:
-            skills_res.append("")
+            skills_res.append("Не указаны")
 
         return '; '.join(skills_res)
 

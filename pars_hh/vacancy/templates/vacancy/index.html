@@ -29,18 +29,20 @@
 	</div>
     <div class="col-sm-9 offset-3" style="background-color:white;">
         {% if res_request == 0 %}
-                <p class = "title-body">Результаты поиска: найдено {{ res_request|length }} вакансий</p>
+                <p class = "title-body" style="color:black">Результаты поиска: 0</p>
         {% else %}
-                <p class = "title-body">Результаты поиска: найдено {{ res_request|length }} вакансий</p>
+                <p class = "title-body" style="color:green"><strong>Результаты поиска: {{ res_request|length }} </strong></p>
                 {% for r in res_request %}
                         <ul>
-                            <li>Вакансия: {{ r.vacancy }}</li>
-                            <li>Описание: {{ r.description }}</li>
-                            <li>Зарплата: {{ r.salary }}</li>
-                            <li>Навыки:   {{ r.skills }}</li>
-                            <li>Компания: {{ r.company }}</li>
-                            <li>Адрес:    {{ r.address }}</li>
-                            <li>Ссылка:   <a href="{{ r.url_link }}">{{ r.url_link }}</a></li>
+                            <li ><strong>Вакансия: {{ r.vacancy }}</strong></li>
+                                {% autoescape off %}
+                                <li><strong>Описание:</strong>{{ r.description|linebreaks }}</li>
+                                {% endautoescape %}
+                            <li><strong>Зарплата:</strong> {{ r.salary }}</li>
+                            <li><strong>Навыки:</strong>   {{ r.skills }}</li>
+                            <li><strong>Компания:</strong> {{ r.company|upper }}</li>
+                            <li><strong>Адрес:</strong>    {{ r.address }}</li>
+                            <li><strong>Ссылка:</strong>   <a href="{{ r.url_link }}">{{ r.url_link }}</a></li>
                             <div class="line"></div>
                         </ul>
                 {% endfor %}
