@@ -13,14 +13,14 @@ def index(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST)
         if form.is_valid():
-            res = Results(form.cleaned_data['vac_input'], form.cleaned_data['reg_input'])
+            form.save()
+            res = Results(form.cleaned_data['vac_input'], form.cleaned_data['reg_input'], form.save().pk)
             res_request = res.parsing()
-
     else:
         res_request = []
         form = AddPostForm()
 
-    return render(request, 'vacancy/index.html', {'res_request': res_request, 'len_res_request': len(res_request),'form': form, 'menu': menu, 'title': 'HH_Parsing'})
+    return render(request, 'vacancy/index.html', {'res_request': res_request, 'form': form, 'menu': menu, 'title': 'HH_Parsing'})
 
 
 def results(request):
