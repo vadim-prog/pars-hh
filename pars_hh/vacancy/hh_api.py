@@ -93,7 +93,6 @@ class Results:
                 data_api = req_desc_api.content.decode()  # Декодируем его ответ, чтобы Кириллица отображалась корректно
                 req_desc_api.close()
                 jsobj_api = json.loads(data_api)
-                #print(data_api)
 
 
                 Output_data.objects.create(
