@@ -48,6 +48,6 @@ class Output_data(models.Model):  # Результаты поиска
     salary = models.CharField(max_length=20, blank=True, verbose_name="Зарплата")
     skills = models.CharField(max_length=255, blank=True, verbose_name="Навыки")
     company = models.CharField(max_length=50, verbose_name="Компания")
-    address = models.CharField(max_length=50, blank=True, verbose_name="Адрес")  # blank=True - поле может быть и пустям, по у молчанию False
+    address = models.CharField(max_length=50, blank=True, null=True, verbose_name="Адрес")  # blank=True - поле может быть и пустям, по у молчанию False
     url_link = models.URLField(verbose_name="Ссылка на вакансию")
     input_vac = models.ForeignKey(Search, on_delete=models.CASCADE, verbose_name="ForeignKey")

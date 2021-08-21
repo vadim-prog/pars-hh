@@ -49,24 +49,23 @@ class Results:
 
     def salary(self, jsobj_api):  # Получаем З/П
         if jsobj_api['salary'] is not None:
-            salary_res = f"от {jsobj_api['salary']['from'] }"
-            if jsobj_api['salary']['to'] is not None:
-                salary_res = salary_res + f"до {jsobj_api['salary']['to']} {jsobj_api['salary']['currency']}"
+            if jsobj_api['salary']['from'] is not None and jsobj_api['salary']['to'] is not None :
+                salary_res = f"{jsobj_api['salary']['from']} - {jsobj_api['salary']['to']} {jsobj_api['salary']['currency']}"
             else:
-                salary_res = salary_res + jsobj_api['salary']['currency']
+                salary_res = f"от {jsobj_api['salary']['from']} {jsobj_api['salary']['currency']}"
         else:
             salary_res = "Не указана"
-
         return salary_res
 
     def skills(self, jsobj_api):
-        skills_res = []
-        for key_skills in range(0, len(jsobj_api["key_skills"])):
-            skills_res.append(jsobj_api["key_skills"][key_skills]["name"])
+        if len(jsobj_api["key_skills"]) != 0:
+            skills_res = []
+            for key_skills in range(0, len(jsobj_api["key_skills"])):
+                skills_res.append(jsobj_api["key_skills"][key_skills]["name"])
+            skills_res = '; '.join(skills_res)
         else:
-            skills_res.append("Не указаны")
-
-        return '; '.join(skills_res)
+            skills_res = "Не указаны"
+        return skills_res
 
     def name_company(self, jsobj_api):
         return jsobj_api['employer']['name']
