@@ -1,7 +1,22 @@
 {% extends 'vacancy/index.html' %}
 
 {% block results %}
-<p class = "title-body" style="color:green"><strong>Результаты поиска: {{ res_request|length }} </strong></p>
+<div class="container-fluid">
+  <div><p class="title-body">...</p></div>
+<div class="row">
+            <div class="col-sm-3 sidebar" style="background-color:lavender;">
+                <div>
+                    <p class="title-body">Вакансия: {{ cur_vac }}</p>
+                    <p class="title-body">Регион: {{ cur_city }}</p>
+                </div>
+                <div>
+                    <p class = "title-body" style="color:green"><strong>Результаты поиска: {{ res_request|length }} </strong></p>
+                </div>
+                <div class="line"></div>
+                <p class = "title-body">Последние 5 запросов:</p>
+            </div>
+
+            <div class="col-sm-9 offset-3" style="background-color:white;">
                 {% for r in res_request %}
                         <ul>
                             <li ><strong>Вакансия: {{ r.vacancy }}</strong></li>
@@ -16,6 +31,9 @@
                             <div class="line"></div>
                         </ul>
                 {% endfor %}
+            </div>
+</div>
+</div>
 {% endblock results %}
 
 

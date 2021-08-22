@@ -2,39 +2,37 @@
 
 
 {% block content %}
-
+{% if res_request == 0 %}
 <div class="container-fluid">
-  <div><p class="title-body">...</p></div>
-  <div class="row">
-    <div class="col-sm-3 sidebar" style="background-color:lavender;">
-        <div><p class="title-body">Поиск по вакансиям:</p></div>
-		<div class="form">
-            <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-error">{{ form.non_field_errors }}</div>
+        <div><p class="title-body">...</p></div>
+        <div class="row">
+            <div class="col-sm-3 sidebar" style="background-color:lavender;">
+                <div><p class="title-body">Поиск по вакансиям:</p></div>
+                <div class="form">
+                    <form action="{% url 'home' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-error">{{ form.non_field_errors }}</div>
 
-            {% for f in form %}
-            <p><label class="form-label" >{{f.label}}: </label>{{ f }}</p>
-            <div class="form-error">{{ f.errors }}</div>
-            {% endfor %}
+                    {% for f in form %}
+                    <p><label class="form-label" >{{f.label}}: </label>{{ f }}</p>
+                    <div class="form-error">{{ f.errors }}</div>
+                    {% endfor %}
 
-            <button type="submit">Поиск</button>
-            </form>
+                    <button type="submit">Поиск</button>
+                    </form>
+                </div>
+
+                <div class="line"></div>
+                    <p class = "title-body">Последние 5 запросов:</p>
+                </div>
+            <div class="col-sm-9 offset-3" style="background-color:white;">
+                    <p class = "title-body" style="color:black">Результаты поиска: 0</p>
+            </div>
         </div>
 
-        <div class="line"></div>
-        <p class = "title-body">Последние 5 запросов:</p>
-
-	</div>
-    <div class="col-sm-9 offset-3" style="background-color:white;">
-        {% if res_request == 0 %}
-                <p class = "title-body" style="color:black">Результаты поиска: 0</p>
-        {% else %}
-            {% block results %}
-            {% endblock results %}
-        {% endif %}
-    </div>
-  </div>
+{% else %}
+    {% block results %}
+    {% endblock results %}
+{% endif %}
 </div>
-
 {% endblock %}

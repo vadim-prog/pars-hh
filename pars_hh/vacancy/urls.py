@@ -3,7 +3,7 @@ from django.urls import path
 
 urlpatterns = [
      #path('', index, name='home'),
-     path('', Search.as_view(), name='home'),
+     path('', SearchView.as_view(), name='home'),
      path('results/<int:pk>/', ResultsView.as_view(), name='results'),
      path('about/', about, name='about'),
      path('contact/', contact, name='contact'),  # Устанавливаем маршруты между ссылкой и представлением
