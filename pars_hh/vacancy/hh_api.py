@@ -108,7 +108,7 @@ class Results:
             if (jsobj['pages'] - page) <= 1:
                 break
 
-        return Output_data.objects.filter(input_vac_id=self.pk)
+        #return Output_data.objects.filter(input_vac_id=self.pk)
 
     # Необязательная задержка, но чтобы не нагружать сервисы hh, оставим. 5 сек мы может подождать
     time.sleep(0.25)

@@ -3,7 +3,7 @@ from .models import *
 from django.core.exceptions import ValidationError
 
 
-class AddPostForm(forms.ModelForm):
+class AddSearchForm(forms.ModelForm):
     class Meta:
         model = Search
         fields = ['input_vacancy', 'city']
