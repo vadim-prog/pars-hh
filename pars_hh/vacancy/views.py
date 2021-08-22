@@ -28,6 +28,7 @@ class SearchView(CreateView):
 
 
 class ResultsView(ListView):
+    paginate_by = 10
     model = Output_data
     form_class = AddSearchForm
     template_name = 'vacancy/results.html'
