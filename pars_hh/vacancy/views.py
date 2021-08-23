@@ -5,6 +5,7 @@ from .hh_api import *
 from .models import *
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
+from .tasks import res_pars
 
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
@@ -22,8 +23,8 @@ class SearchView(CreateView):
         return context
 
     def get_success_url(self):
-        res = Results(self.object.input_vacancy, self.object.city, self.object.id)
-        res.parsing()
+        #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
+        res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
 
 
