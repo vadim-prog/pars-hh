@@ -14,7 +14,8 @@ class HHapi:
 
     def getarea(self):
         req = requests.get('https://api.hh.ru/suggests/areas', {'text': self.name_region})
-        data = req.content.decode()
+        #data = req.content.decode()
+        data = req.content
         req.close()
         jsobj = json.loads(data)
         try:

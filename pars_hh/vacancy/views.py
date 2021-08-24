@@ -23,8 +23,8 @@ class SearchView(CreateView):
         return context
 
     def get_success_url(self):
-        #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
-        res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
+        Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
+        #res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
 
 
