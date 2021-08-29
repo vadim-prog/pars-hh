@@ -7,7 +7,8 @@ from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 from .tasks import res_pars
 
-menu = [{'title': "О сайте", 'url_name': 'about'},
+menu = [{'title': "Результаты", 'url_name': 'results'},
+        {'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         ]
 
@@ -23,9 +24,10 @@ class SearchView(CreateView):
         return context
 
     def get_success_url(self):
-        Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
-        #res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
-        return reverse_lazy('results', kwargs={'pk': self.object.id})
+        #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
+        res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
+        #return reverse_lazy('results', kwargs={'pk': self.object.id})
+        return reverse_lazy('home')
 
 
 class ResultsView(ListView):
@@ -41,6 +43,7 @@ class ResultsView(ListView):
         context['menu'] = menu
         context['cur_vac'] = Search.objects.get(id = self.kwargs['pk']).input_vacancy
         context['cur_city'] = Search.objects.get(id = self.kwargs['pk']).city
+        context['vac_found'] = len(Output_data.objects.filter(input_vac_id = self.kwargs['pk']))
         return context
 
     def get_queryset(self):

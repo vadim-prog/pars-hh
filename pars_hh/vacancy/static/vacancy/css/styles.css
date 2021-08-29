@@ -1,3 +1,7 @@
+a.disabled {
+  pointer-events: none;
+}
+
 a {
 	color: #0059b2;
 	text-decoration: none;
