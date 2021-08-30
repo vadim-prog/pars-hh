@@ -15,19 +15,21 @@ menu = [{'title': "Результаты", 'url_name': 'results'},
 class SearchView(CreateView):
     form_class = AddSearchForm
     template_name = 'vacancy/index.html'
+    #pk = None
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'HH_Parsing'
         context['menu'] = menu
         context['res_request'] = 0
+        context['pk'] = None
         return context
 
     def get_success_url(self):
         #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
         res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
-        #return reverse_lazy('results', kwargs={'pk': self.object.id})
-        return reverse_lazy('home')
+        return reverse_lazy('results', kwargs={'pk': self.object.id})
+        #return reverse_lazy('home')
 
 
 class ResultsView(ListView):
@@ -41,13 +43,14 @@ class ResultsView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'HH_Parsing'
         context['menu'] = menu
-        context['cur_vac'] = Search.objects.get(id = self.kwargs['pk']).input_vacancy
-        context['cur_city'] = Search.objects.get(id = self.kwargs['pk']).city
-        context['vac_found'] = len(Output_data.objects.filter(input_vac_id = self.kwargs['pk']))
+        context['cur_vac'] = Search.objects.get(id=self.kwargs['pk']).input_vacancy
+        context['cur_city'] = Search.objects.get(id=self.kwargs['pk']).city
+        context['vac_found'] = len(Output_data.objects.filter(input_vac_id=self.kwargs['pk']))
+        context['pk'] = self.kwargs['pk']
         return context
 
     def get_queryset(self):
-        return Output_data.objects.filter(input_vac_id = self.kwargs['pk'])
+        return Output_data.objects.filter(input_vac_id=self.kwargs['pk'])
 
 
 
