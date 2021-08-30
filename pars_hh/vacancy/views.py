@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .hh_api import *
 from .models import *
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, TemplateView
 from django.urls import reverse_lazy
 from .tasks import res_pars
 
@@ -15,7 +15,6 @@ menu = [{'title': "Результаты", 'url_name': 'results'},
 class SearchView(CreateView):
     form_class = AddSearchForm
     template_name = 'vacancy/index.html'
-    #pk = None
 
     def get_context_data(self, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,7 +28,6 @@ class SearchView(CreateView):
         #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
         res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
-        #return reverse_lazy('home')
 
 
 class ResultsView(ListView):
@@ -52,8 +50,6 @@ class ResultsView(ListView):
     def get_queryset(self):
         return Output_data.objects.filter(input_vac_id=self.kwargs['pk'])
 
-
-
 #def index(request):
 #
 #   if request.method == 'POST':
@@ -67,15 +63,6 @@ class ResultsView(ListView):
 #        form = AddSearchForm()
 
 #    return render(request, 'vacancy/index.html', {'res_request': res_request, 'form': form, 'menu': menu, 'title': 'HH_Parsing'})
-
-
-def results(request):
-    context = {
-        'menu': menu,
-        'title': 'HH_Parsing',
-        # 'cat_selected': 0,
-    }
-    return render(request, 'vacancy/results.html', context=context)
 
 
 def contact(request):
@@ -94,6 +81,8 @@ def about(request):
         # 'cat_selected': 0,
     }
     return render(request, 'vacancy/about.html', context=context)
+
+
 
 
 def pageNotFound(request, exception):
