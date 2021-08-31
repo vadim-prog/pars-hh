@@ -18,7 +18,7 @@
       <img class="logo" src="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019">
   </a>
 	{% for m in menu %}
-		{% if m.title == 'Результаты' and pk is None %}
+		{% if m.title != 'Результаты' and pk is None %}
 			<a class="nav-link nav-text disabled">{{m.title}}</a>
 		{% else %}
 			<a class="nav-link nav-text" href="{% url m.url_name pk=pk %}">{{m.title}}</a>
