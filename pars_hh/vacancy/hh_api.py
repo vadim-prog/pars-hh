@@ -17,7 +17,6 @@ class HHapi:
         data = req.content
         req.close()
         jsobj = json.loads(data)
-        # print(f'Вот такой ID {jsobj["items"][0]["id"]}')
         return jsobj["items"][0]["id"]
 
     def getpage(self):

@@ -20,7 +20,13 @@ class AddSearchForm(forms.ModelForm):
         }
 
     def clean_city(self):
-        city = self.cleaned_data('city')
-        if city is not 'Омск':
+        city = self.cleaned_data['city']
+        req = requests.get('https://api.hh.ru/suggests/areas', {'text': city})
+        data = req.content
+        req.close()
+        jsobj = json.loads(data)
+        try:
+            jsobj["items"][0]["id"]
+        except IndexError:
             raise ValidationError('Введите корректный город')
         return city
