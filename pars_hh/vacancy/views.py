@@ -1,11 +1,12 @@
-from django.http import HttpResponseNotFound, Http404
+from django.http import HttpResponseNotFound, Http404, request, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
-from .hh_api import *
 from .models import *
 from django.views.generic import CreateView, ListView, TemplateView
 from django.urls import reverse_lazy
 from .tasks import res_pars
+
+
 
 menu = [{'title': "Результаты", 'url_name': 'results'},
         {'title': "О сайте", 'url_name': 'about'},
@@ -29,11 +30,10 @@ class SearchView(CreateView):
         res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
 
-
 class ResultsView(ListView):
     paginate_by = 10
     model = Output_data
-    form_class = AddSearchForm
+    #form_class = AddSearchForm
     template_name = 'vacancy/results.html'
     context_object_name = 'res_request'
 
@@ -87,3 +87,6 @@ def about(request):
 
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
+
+def regNotFound(request):
+    return HttpResponse('<h1>Регион не найден</h1>')

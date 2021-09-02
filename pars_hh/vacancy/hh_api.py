@@ -14,14 +14,11 @@ class HHapi:
 
     def getarea(self):
         req = requests.get('https://api.hh.ru/suggests/areas', {'text': self.name_region})
-        #data = req.content.decode()
         data = req.content
         req.close()
         jsobj = json.loads(data)
-        try:
-            return jsobj["items"][0]["id"]
-        except IndexError:
-            pass
+        # print(f'Вот такой ID {jsobj["items"][0]["id"]}')
+        return jsobj["items"][0]["id"]
 
     def getpage(self):
         params = {
