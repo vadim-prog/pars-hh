@@ -1,11 +1,11 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Search(models.Model):
     input_vacancy = models.CharField(max_length=50, verbose_name="Запрос вакансии")
     city = models.CharField(max_length=20, verbose_name="Регион")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время запроса")
+
 
 class Output_data(models.Model):  # Результаты поиска
     vacancy = models.CharField(max_length=50, verbose_name="Вакансия")

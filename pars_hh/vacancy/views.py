@@ -26,14 +26,12 @@ class SearchView(CreateView):
         return context
 
     def get_success_url(self):
-        #Results(self.object.input_vacancy, self.object.city, self.object.id).parsing()
         res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
 
 class ResultsView(ListView):
     paginate_by = 10
     model = Output_data
-    #form_class = AddSearchForm
     template_name = 'vacancy/results.html'
     context_object_name = 'res_request'
 
@@ -50,26 +48,11 @@ class ResultsView(ListView):
     def get_queryset(self):
         return Output_data.objects.filter(input_vac_id=self.kwargs['pk'])
 
-#def index(request):
-#
-#   if request.method == 'POST':
-#        form = AddSearchForm(request.POST)
-#       if form.is_valid():
-#          form.save()
-#            res = Results(form.cleaned_data['input_vacancy'], form.cleaned_data['city'], form.save().pk)
-#            res_request = res.parsing()
-#    else:
-#        res_request = []
-#        form = AddSearchForm()
-
-#    return render(request, 'vacancy/index.html', {'res_request': res_request, 'form': form, 'menu': menu, 'title': 'HH_Parsing'})
-
 
 def contact(request):
     context = {
         'menu': menu,
         'title': 'HH_Parsing',
-        # 'cat_selected': 0,
     }
     return render(request, 'vacancy/contact.html', context=context)
 
@@ -78,15 +61,9 @@ def about(request):
     context = {
         'menu': menu,
         'title': 'HH_Parsing',
-        # 'cat_selected': 0,
     }
     return render(request, 'vacancy/about.html', context=context)
 
 
-
-
 def pageNotFound(request, exception):
     return HttpResponseNotFound('<h1>Страница не найдена</h1>')
-
-def regNotFound(request):
-    return HttpResponse('<h1>Регион не найден</h1>')

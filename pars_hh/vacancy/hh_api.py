@@ -1,9 +1,7 @@
 import requests
 import json
 import time
-import re
 from .models import *
-from django.http import HttpResponse
 
 
 class HHapi:
@@ -80,7 +78,6 @@ class Results:
         return jsobj_api['alternate_url']
 
     def parsing(self):
-        #s1 = Search.objects.create(input_vacancy=self.name_v, city=self.name_r)
         for page in range(0, 10):
             hh_req = HHapi(page, self.name_v, self.name_r)
             jsobj = json.loads(hh_req.getpage())
@@ -89,7 +86,6 @@ class Results:
                 data_api = req_desc_api.content.decode()  # Декодируем его ответ, чтобы Кириллица отображалась корректно
                 req_desc_api.close()
                 jsobj_api = json.loads(data_api)
-
 
                 Output_data.objects.create(
                     vacancy=self.name_vac_hh(jsobj, vacancy),
@@ -104,8 +100,6 @@ class Results:
 
             if (jsobj['pages'] - page) <= 1:
                 break
-
-        #return Output_data.objects.filter(input_vac_id=self.pk)
 
     # Необязательная задержка, но чтобы не нагружать сервисы hh, оставим. 5 сек мы может подождать
     time.sleep(0.25)

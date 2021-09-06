@@ -6,10 +6,6 @@ import json
 
 
 class AddSearchForm(forms.ModelForm):
-    '''
-    def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
-    '''
 
     class Meta:
         model = Search
