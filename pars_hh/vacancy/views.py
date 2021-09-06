@@ -7,11 +7,11 @@ from django.urls import reverse_lazy
 from .tasks import res_pars
 
 
-
 menu = [{'title': "Результаты", 'url_name': 'results'},
         {'title': "О сайте", 'url_name': 'about'},
         {'title': "Обратная связь", 'url_name': 'contact'},
         ]
+
 
 class SearchView(CreateView):
     form_class = AddSearchForm
@@ -28,6 +28,7 @@ class SearchView(CreateView):
     def get_success_url(self):
         res_pars.delay(self.object.input_vacancy, self.object.city, self.object.id)  # Запуск в селери
         return reverse_lazy('results', kwargs={'pk': self.object.id})
+
 
 class ResultsView(ListView):
     paginate_by = 10
